@@ -1,14 +1,12 @@
 import { Stack } from "@mui/material";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import Chat from "./Chat";
 import Side from "./Side";
 import io from "socket.io-client";
 function App() {
   const [clickcon, setClickcon] = useState("");
   const socket = io.connect("http://localhost:3002");
-  useEffect(() => {
-    socket.emit("join_room", "conversation");
-  }, []);
+
 
   return (
     <Stack

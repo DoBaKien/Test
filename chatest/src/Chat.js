@@ -39,7 +39,7 @@ function Chat({ clickcon, socket }) {
           ":" +
           new Date(Date.now()).getMinutes(),
       };
-
+      setMessageList((list) => [...list, messageData]);
       await socket.emit("send_message", messageData);
       setCurrentMessage("");
     }

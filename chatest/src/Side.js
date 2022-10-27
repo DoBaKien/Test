@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 function Side({ setClickcon, socket }) {
   const [conversation, setConversation] = useState("");
 
-
   useEffect(() => {
     axios
       .get("http://localhost:3001/conversation")
@@ -24,6 +23,7 @@ function Side({ setClickcon, socket }) {
   }, []);
 
   const handleClick = (e) => {
+    socket.emit("join_room", e.cid);
     setClickcon(e.cid);
   };
   return (
@@ -31,7 +31,7 @@ function Side({ setClickcon, socket }) {
       {Array.from(conversation).map((con, i) => (
         <Box key={i} sx={{ marginTop: 2 }}>
           <Card sx={{ maxWidth: 345 }}>
-            <CardActionArea onClick={(e) => handleClick(con)}>
+            <CardActionArea onClick={() => handleClick(con)}>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   {con.name}
