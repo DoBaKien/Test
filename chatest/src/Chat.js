@@ -15,7 +15,7 @@ function Chat({ clickcon, socket }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/message")
+      .get(`http://localhost:8083/receive/${clickcon}`)
       .then(function (response) {
         var doneTasks = response.data.filter(function (task) {
           return task.cid === clickcon;
@@ -29,6 +29,7 @@ function Chat({ clickcon, socket }) {
   }, [clickcon]);
 
   const sendMessage = async () => {
+    
     if (currentMessage !== "") {
       const messageData = {
         room: "conversation",
