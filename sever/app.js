@@ -27,11 +27,31 @@ io.on("connection", (socket) => {
     socket.to(data.room).emit("receive_message", data);
   });
 
+  socket.on("ic_leave", function (data) {
+    console.log("======Left Room========== ");
+    console.log(data);
+
+    socket.leave(data, function (err) {
+      if (
+        typeof io.sockets.adapter.rooms[room1] !== "undefined" &&
+        io.sockets.adapter.rooms[room1] != null
+      ) {
+        console.log(io.sockets.adapter.rooms[room1].length);
+        console.log(err);
+      } else {
+        console.log("room is deleted");
+      }
+    });
+  });
+
   socket.on("disconnect", () => {
     console.log("User Disconnected", socket.id);
   });
   socket.on("forceDisconnect", function () {
     socket.disconnect();
+  });
+  socket.on("send-notification", function (data) {
+    socket.to(data.room).emit("new-notification", data);
   });
 });
 
